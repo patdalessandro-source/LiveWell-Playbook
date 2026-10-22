@@ -1,6 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><script>(/** Remove citation markers from rendered prose without rewriting document source. */
+function installDashboardCitations(config) {
+  "use strict";
+
+  if (window.__writerDashboardCitations) {
+    return;
+  }
+
+  const { pattern, prefixes } = config;
+  const withPunctuation = new RegExp(" ?" + pattern + "([.,!?;:])", "gs");
+  const withSpaces = new RegExp("( ?)" + pattern + "( ?)", "gs");
+  const identifier = /^[\p{L}\p{N}_.:-]+$/u;
+  const cleanedText = new WeakSet();
+
+  window.__writerDashboardCitations = { containsCleanedText };
+
+  cleanSubtree(document);
+  new MutationObserver(function (records) {
+    for (const record of records) {
+      if (record.type === "characterData") {
+        cleanText(record.target);
+      } else {
+        for (const node of record.addedNodes) {
+          cleanSubtree(node);
+        }
+      }
+    }
+  }).observe(document, { childList: true, characterData: true, subtree: true });
+
+  function containsCleanedText(element) {
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    let text;
+
+    while ((text = walker.nextNode())) {
+      if (cleanedText.has(text)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  function cleanSubtree(root) {
+    if (root.nodeType === Node.TEXT_NODE) {
+      cleanText(root);
+
+      return;
+    }
+
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    let text;
+
+    while ((text = walker.nextNode())) {
+      cleanText(text);
+    }
+  }
+
+  function cleanText(text) {
+    // Generated applications own their executable content and users own their drafts.
+    if (
+      !text.parentElement ||
+      text.parentElement.closest(
+        'script, style, textarea, [contenteditable]:not([contenteditable="false"])',
+      )
+    ) {
+      return;
+    }
+
+    const cleaned = text.nodeValue
+      .replace(withPunctuation, function (marker, citationId, punctuation) {
+        return isCitation(citationId) ? punctuation : marker;
+      })
+      .replace(withSpaces, function (marker, before, citationId, after) {
+        return isCitation(citationId) ? before || after : marker;
+      });
+
+    // Observer records include our own changes; unchanged text must stay untouched.
+    if (cleaned !== text.nodeValue) {
+      cleanedText.add(text);
+      text.nodeValue = cleaned;
+    }
+  }
+
+  function isCitation(citationId) {
+    const trimmed = citationId.trim();
+
+    return (
+      identifier.test(trimmed) &&
+      prefixes.some(function (prefix) {
+        return trimmed.startsWith(prefix) && trimmed.length > prefix.length;
+      })
+    );
+  }
+}
+)({"pattern":"(?:\u3010|\u3016|\u301a|\u3014|\u3018|\u2045|\\\\u3010|\\\\u3016|\\\\u301a|\\\\u3014|\\\\u3018|\\\\u2045)((?:(?!\u3011|\u3017|\u301b|\u3015|\u3019|\u2046|\\\\u3011|\\\\u3017|\\\\u301b|\\\\u3015|\\\\u3019|\\\\u2046).)+?)(?:\u3011|\u3017|\u301b|\u3015|\u3019|\u2046|\\\\u3011|\\\\u3017|\\\\u301b|\\\\u3015|\\\\u3019|\\\\u2046)","prefixes":["doc-","web-","kg-","cp-","sg-","eb-"]});</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LiveWell Capital Playbook</title>
@@ -2231,6 +2325,7 @@ body {
         <p class="section-desc">Systematic momentum with drawdown defense. The Maverick strategy combines a momentum sleeve of individual equities with a diversified completion sleeve of ETFs. A drawdown overlay actively manages risk by reducing equity exposure when market conditions deteriorate, providing a built-in safety net that traditional buy-and-hold strategies lack.</p>
         <p style="font-style: italic; font-size: 13px; color: var(--charcoal); margin-top: 10px;">Model portfolio performance &mdash; not composite performance of actual client accounts. See disclosures below.</p>
         <a href="https://nmfco.sharepoint.com/:p:/r/sites/ec-lwc/Shared%20Documents/Operations/Portfolio%20Resources/Investment%20Committee/Alts%20-%20DI%20-%20Mav%20-%20Neo%20SharePoint%20links/Maverick%20Diversified%20Portfolios.pptx?d=w2bb7c853ab9d4ab7b414340c78256d3a&csf=1&web=1&e=vMGhgx" target="_blank" rel="noopener" style="display: inline-block; margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--blue); text-decoration: none;">View Maverick Slide Deck &rarr;</a>
+        <a href="https://nmfco.sharepoint.com/:b:/r/sites/ec-lwc/Shared%20Documents/Operations/Portfolio%20Resources/Investment%20Committee/Alts%20-%20DI%20-%20Mav%20-%20Neo%20SharePoint%20links/Maverick_Fact_Sheet_Q3_2026%20(2).pdf?d=w820113b973774841a766ccde7aab5126&csf=1&web=1&e=dI7GRQ" target="_blank" rel="noopener" style="display: inline-block; margin-top: 10px; margin-left: 16px; font-size: 13px; font-weight: 600; color: var(--blue); text-decoration: none;">View Maverick Fact Sheet &rarr;</a>
     </div>
     <div class="strategy-detail-grid">
         <div class="strategy-detail-card">
@@ -2457,6 +2552,7 @@ body {
         <p class="section-desc">Rules-based ETF rotation. Neo employs a systematic tactical rotation across 8 ETF pairs, selecting the stronger-performing ETF from each pair on a monthly basis using relative strength signals. This disciplined, emotion-free approach captures returns across growth, trend, factor, global, macro, AI, sector, and cycle themes.</p>
         <p style="font-style: italic; font-size: 13px; color: var(--charcoal); margin-top: 10px;">Model portfolio performance &mdash; not composite performance of actual client accounts. See disclosures below.</p>
         <a href="https://nmfco.sharepoint.com/:p:/r/sites/ec-lwc/Shared%20Documents/Operations/Portfolio%20Resources/Investment%20Committee/Alts%20-%20DI%20-%20Mav%20-%20Neo%20SharePoint%20links/Neo_Diversified_Portfolios.pptx?d=wa0fa7a9a2446483d8747be7227ae3181&csf=1&web=1&e=rcKd9D" target="_blank" rel="noopener" style="display: inline-block; margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--blue); text-decoration: none;">View Neo Slide Deck &rarr;</a>
+        <a href="https://nmfco.sharepoint.com/:b:/r/sites/ec-lwc/Shared%20Documents/Operations/Portfolio%20Resources/Investment%20Committee/Alts%20-%20DI%20-%20Mav%20-%20Neo%20SharePoint%20links/Neo_Fact_Sheet_Q3_2026%20(6).pdf?d=wed7f5d9d38ef4edf9cbba70156081df6&csf=1&web=1&e=meG7Ph" target="_blank" rel="noopener" style="display: inline-block; margin-top: 10px; margin-left: 16px; font-size: 13px; font-weight: 600; color: var(--blue); text-decoration: none;">View Neo Fact Sheet &rarr;</a>
     </div>
     <div class="strategy-detail-grid">
         <div class="strategy-detail-card">
