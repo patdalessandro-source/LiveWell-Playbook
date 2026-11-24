@@ -94,7 +94,7 @@ function installDashboardCitations(config) {
     );
   }
 }
-)({"pattern":"(?:\u3010|\u3016|\u301a|\u3014|\u3018|\u2045|\\\\u3010|\\\\u3016|\\\\u301a|\\\\u3014|\\\\u3018|\\\\u2045)((?:(?!\u3011|\u3017|\u301b|\u3015|\u3019|\u2046|\\\\u3011|\\\\u3017|\\\\u301b|\\\\u3015|\\\\u3019|\\\\u2046).)+?)(?:\u3011|\u3017|\u301b|\u3015|\u3019|\u2046|\\\\u3011|\\\\u3017|\\\\u301b|\\\\u3015|\\\\u3019|\\\\u2046)","prefixes":["doc-","web-","kg-","cp-","sg-","eb-"]});</script>
+)({"pattern":"(?:\u3010|\u3016|\u301a|\u3014|\u3018|\u2045|\\\\u3010|\\\\u3016|\\\\u301a|\\\\u3014|\\\\u3018|\\\\u2045)((?:(?!\u3011|\u3017|\u301b|\u3015|\u3019|\u2046|\\\\u3011|\\\\u3017|\\\\u301b|\\\\u3015|\\\\u3019|\\\\u2046|\u3010|\u3016|\u301a|\u3014|\u3018|\u2045|\\\\u3010|\\\\u3016|\\\\u301a|\\\\u3014|\\\\u3018|\\\\u2045).)+?)(?:\u3011|\u3017|\u301b|\u3015|\u3019|\u2046|\\\\u3011|\\\\u3017|\\\\u301b|\\\\u3015|\\\\u3019|\\\\u2046)","prefixes":["doc-","web-","kg-","cp-","sg-","eb-"]});</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LiveWell Capital Playbook</title>
@@ -629,6 +629,18 @@ body {
 
 /* Benefits 2x3 cited card grid (from slides) */
 .benefits-grid-6 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 8px; }
+.qoz-timeline { display: flex; flex-wrap: wrap; gap: 16px; }
+.qoz-timeline-step { flex: 1 1 200px; min-width: 0; background: var(--white); border: 1px solid var(--light-gray); border-top: 4px solid var(--blue); border-radius: 8px; padding: 16px; }
+.qoz-timeline-badge { display: inline-block; background: var(--navy); color: var(--white); font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 12px; margin-bottom: 10px; letter-spacing: 0.5px; }
+.qoz-timeline-step h4 { font-size: 14px; font-weight: 600; color: var(--navy); margin: 0 0 8px; }
+.qoz-timeline-step p { font-size: 12px; line-height: 1.6; color: var(--charcoal); margin: 0; }
+.qoz-example-grid { max-width: 480px; margin: 0 auto; background: var(--white); border: 1px solid var(--light-gray); border-radius: 8px; padding: 16px 20px; }
+.qoz-example-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; color: var(--charcoal); border-bottom: 1px solid var(--light-gray); }
+.qoz-example-row:last-child { border-bottom: none; }
+.qoz-example-row span:last-child { font-weight: 600; color: var(--navy); }
+.qoz-example-total { background: rgba(47,111,163,0.08); margin: 4px -20px; padding: 10px 20px; border-radius: 4px; }
+.qoz-example-total span { font-weight: 700; color: var(--navy); font-size: 15px; }
+.qoz-grid .alt-card-expand { flex: 1 1 480px; max-width: calc(50% - 10px); }
 .benefit-card-cited { background: var(--white); border: 1px solid var(--navy); border-radius: 8px; padding: 20px; border-top: 4px solid var(--navy); }
 .benefit-card-cited:nth-child(2) { border-top-color: var(--blue); }
 .benefit-card-cited:nth-child(3) { border-top-color: var(--light-blue); }
@@ -3076,6 +3088,71 @@ body {
                 <a href="https://nmfco.sharepoint.com/:b:/r/sites/ec-lwc/Shared%20Documents/Operations/Portfolio%20Resources/Investment%20Committee/Alts%20presentations/Fortress.pdf?d=w5c2e76330f9140bbbdd4ace978fc39a3&csf=1&web=1&e=J5ytSk" target="_blank" rel="noopener noreferrer" class="fact-sheet-btn">Fact Sheet &#8599;</a>
             </div>
         </div></div>
+    </div>
+
+    <!-- QOZ — Qualified Opportunity Zones -->
+    <div class="alt-subsection" id="qoz-section">
+        <h3 style="text-align:center;">Qualified Opportunity Zones (QOZ)</h3>
+        <p class="alt-cat-desc" style="text-align:center; max-width:860px; margin:0 auto 20px;">Qualified Opportunity Zone funds give investors a way to defer and ultimately eliminate capital gains taxes by rolling realized gains into a Qualified Opportunity Fund (QOF) that invests in designated economically distressed communities. Under the updated QOZ 2.0 rules (effective for gains invested on or after January 1, 2027), investors who roll capital gains into a QOF receive three core tax benefits: a five-year deferral of capital gain recognition from the date of investment; a 10% basis step-up at the end of the deferral period (30% for Rural Zone Funds); and exclusion of capital gain and depreciation recapture on the QOF investment itself for up to 30 years, provided the investor holds the Fund interest for at least 10 years. Individuals have 180 days from the date a gain was realized to invest all or a portion of the gain into a QOF &mdash; a window that can span across calendar years. The five-year rolling deferral creates a known recognition date sized to a known gain, which makes the deferral period an active planning window rather than a passive waiting period: coordinated loss harvesting, passive depreciation losses from QOF partnerships, and gifting structures can all be layered during the deferral period to compress the gain recognized at inclusion.</p>
+
+        <div class="native-chart-block" style="max-width:960px; margin:0 auto 32px;">
+            <h3 style="text-align:center;">QOZ Investment Timeline</h3>
+            <p style="text-align:center; max-width:800px; margin:0 auto 24px;">The three-phase tax benefit timeline for a hypothetical QOF investment.</p>
+            <div class="qoz-timeline">
+                <div class="qoz-timeline-step">
+                    <div class="qoz-timeline-badge">Day 0</div>
+                    <h4>Asset Sale &amp; 180-Day Window</h4>
+                    <p>Capital gain is realized from an asset sale. The investor has 180 days from the date the gain was realized to invest all or a portion of the gain into a QOF. This window can span across calendar years.</p>
+                </div>
+                <div class="qoz-timeline-step">
+                    <div class="qoz-timeline-badge">Years 1&ndash;5</div>
+                    <h4>Deferral Period</h4>
+                    <p>Qualifying capital gains reinvested into a QOF are deferred for up to five years from the date of re-investment. Capital gains tax becomes due on 90% of the original deferred gain (70% for QROFs) at the end of the deferral period.</p>
+                </div>
+                <div class="qoz-timeline-step">
+                    <div class="qoz-timeline-badge">Year 5</div>
+                    <h4>Basis Step-Up</h4>
+                    <p>A qualifying capital gain invested in a QOF for the duration of the five-year deferral period may be eligible for a 10% basis step-up at the expiration of the deferral period &mdash; or 30% if the investment is made in a Qualified Rural Opportunity Zone Fund (QROF).</p>
+                </div>
+                <div class="qoz-timeline-step">
+                    <div class="qoz-timeline-badge">Years 10&ndash;30</div>
+                    <h4>Tax Elimination</h4>
+                    <p>As long as the investment in a QOF is held for at least 10 years, and up to 30 years, capital gains taxes can be eliminated upon exit of the fund with no depreciation recapture. The QOF disposes of its assets and distributes net proceeds to investors, who may elect a fair value basis step-up eliminating any capital gains or depreciation recapture tax on their interest.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="native-chart-block" style="max-width:960px; margin:0 auto 32px;">
+            <h3 style="text-align:center;">Why Deferral Creates Planning Value</h3>
+            <p style="text-align:center; max-width:800px; margin:0 auto 20px;">The benefits compound when the deferral period is treated as an active planning window. In a hypothetical $5 million gain example, coordinated capital loss harvesting, passive loss generation, and basis step-up mechanics can reduce taxable exposure from $5,000,000 to $1,900,000 &mdash; taxation on only 38% of the original gain.</p>
+            <div class="qoz-example-grid">
+                <div class="qoz-example-row"><span>Original Deferred Gain</span><span>$5,000,000</span></div>
+                <div class="qoz-example-row"><span>10% Step-Up</span><span>($500,000)</span></div>
+                <div class="qoz-example-row"><span>Loss Harvesting</span><span>($1,700,000)</span></div>
+                <div class="qoz-example-row qoz-example-total"><span>Recognized Gain</span><span>$1,900,000</span></div>
+            </div>
+            <p style="text-align:center; font-size:11px; color:var(--charcoal); max-width:800px; margin:12px auto 0;">Hypothetical illustration for advisor education only. Assumes QOZ 2.0 rules for gains invested on or after January 1, 2027. Actual results depend on individual circumstances, execution of loss harvesting strategies, and future tax law. Not tax advice &mdash; clients should consult their tax professional.</p>
+        </div>
+
+        <div class="alt-subsection" style="text-align:center;">
+            <h4 style="text-align:center; margin-bottom:8px;">QOZ Offerings</h4>
+            <p class="alt-cat-desc" style="text-align:center; max-width:800px; margin:0 auto 20px;">Click any card to expand detailed terms and metrics. Fact sheets link to SharePoint.</p>
+            <div class="alt-grid qoz-grid" style="justify-content:center; max-width:1100px; margin:0 auto;">
+        <div class="model-card alt-card-expand" data-model="Griffin Capital QOZ Fund V, L.P.">
+            <div class="model-card-header" onclick="toggleModel(this)">
+                <span class="model-name">Griffin Capital QOZ Fund V, L.P.</span>
+                <span class="model-chevron">&#9662;</span>
+            </div>
+            <div class="model-card-body">
+                <p class="model-desc">A diversified rental housing Qualified Opportunity Zone fund targeting multifamily, student housing, and build-to-rent through ground-up development, pre-TCO acquisition, or preferred-equity investments. The Fund invests in 8 to 12 geographically diversified projects per vintage, targeting a 10-12 year hold from the close of the offering period. QOZ 2.0 rules provide a five-year capital gain deferral, a 10% basis step-up at the end of the deferral period (30% for Rural Zone Funds), and elimination of capital gain and depreciation recapture for holdings of at least 10 years.</p>
+                <div class="alt-details-grid">
+                    
+                    <div class="alt-detail-col"><h4>Key Terms &amp; Metrics</h4><div class="perf-row"><span class="perf-label">Minimum Commitment</span><span class="perf-val">Accredited Investor</span></div><div class="perf-row"><span class="perf-label">Composition / Fund Structure</span><span class="perf-val">Limited Partnership</span></div><div class="perf-row"><span class="perf-label">Tax Reporting</span><span class="perf-val">K-1 with composite option</span></div><div class="perf-row"><span class="perf-label">Preferred Return</span><span class="perf-val">7% annual IRR</span></div><div class="perf-row"><span class="perf-label">Carried Interest</span><span class="perf-val">20% with 50/50 catch-up</span></div><div class="perf-row"><span class="perf-label">Offering Amount</span><span class="perf-val">$600 million</span></div><div class="perf-row"><span class="perf-label">Offering Period</span><span class="perf-val">12-18 months</span></div><div class="perf-row"><span class="perf-label">Target Leverage</span><span class="perf-val">50%-60%</span></div><div class="perf-row"><span class="perf-label">Tax Counsel</span><span class="perf-val">Baker McKenzie</span></div><div class="perf-row"><span class="perf-label">Auditor</span><span class="perf-val">KPMG</span></div><div class="perf-row"><span class="perf-label">Tax Document Preparation</span><span class="perf-val">PwC</span></div></div>
+                </div>
+                <a href="https://nmfco.sharepoint.com/:b:/r/sites/ec-lwc/Shared%20Documents/Operations/Portfolio%20Resources/Investment%20Committee/Alts%20-%20DI%20-%20Mav%20-%20Neo%20SharePoint%20links/Griffin_Capital_QOZ_Fund_V__L.P._Presentation.pdf?d=w6e6b56315c714cf39954f855243bde02&csf=1&web=1&e=yaezUC" target="_blank" rel="noopener noreferrer" class="fact-sheet-btn">Fact Sheet &#8599;</a>
+            </div>
+        </div></div>
+        </div>
     </div>
 </section>
       
